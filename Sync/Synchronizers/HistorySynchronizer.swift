@@ -9,3 +9,13 @@ import XCGLogger
 
 // TODO: same comment as for SyncAuthState.swift!
 private let log = XCGLogger.defaultInstance()
+
+public class HistorySynchronizer: BaseSingleCollectionSynchronizer, Synchronizer {
+    public required init(scratchpad: Scratchpad, delegate: SyncDelegate, basePrefs: Prefs) {
+        super.init(scratchpad: scratchpad, delegate: delegate, basePrefs: basePrefs, collection: "history")
+    }
+
+    public func synchronizeLocalHistory(history: (), withServer storageClient: Sync15StorageClient, info: InfoCollections) -> Success {
+        return succeed()
+    }
+}
