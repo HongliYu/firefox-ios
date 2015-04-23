@@ -16,6 +16,14 @@ public class HistorySynchronizer: BaseSingleCollectionSynchronizer, Synchronizer
     }
 
     public func synchronizeLocalHistory(history: (), withServer storageClient: Sync15StorageClient, info: InfoCollections) -> Success {
+        let keys = self.scratchpad.keys?.value
+        let encoder = RecordEncoder<HistoryPayload>(decode: { HistoryPayload($0) }, encode: { $0 })
+        if let encrypter = keys?.encrypter(self.collection, encoder: encoder) {
+            let historyClient = storageClient.clientForCollection(self.collection, encrypter: encrypter)
+
+            let new = historyClient.getSince(self.lastFetched)
+        }
+
         return succeed()
     }
 }
